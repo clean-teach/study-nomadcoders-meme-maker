@@ -3,25 +3,34 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-ctx.fillRect(400, 200, 50, 200);
-ctx.fillRect(600, 200, 50, 200);
-ctx.fillRect(500, 300, 50, 100);
-ctx.fillRect(400, 200, 200, 20);
-ctx.moveTo(400, 200);
-ctx.lineTo(525, 100);
-ctx.lineTo(650, 200);
-ctx.fill();
+ctx.lineWidth = 2;
 
-ctx.beginPath();
-ctx.fillRect(210 - 40, 200 - 30, 15, 100);
-ctx.fillRect(350 - 40, 200 - 30, 15, 100);
-ctx.fillRect(260 - 40, 200 - 30, 60, 200);
+const colors = [
+    "#ff3838",
+    "#ffb8b8",
+    "#c56cf0",
+    "#ff9f1a",
+    "#fff200",
+    "#32ff7e",
+    "#7efff5",
+    "#18dcff",
+    "#7d5fff",
+  ];
 
-ctx.arc(250, 100, 50, 0, 2 * Math.PI);
-ctx.fill();
+let moveToX = 0, moveToY = 0;
 
-ctx.beginPath();
-ctx.fillStyle = "white";
-ctx.arc(260 + 10, 80, 8, Math.PI, 2 * Math.PI);
-ctx.arc(220 + 10, 80, 8, Math.PI, 2 * Math.PI);
-ctx.fill();
+const handleClick = (event) => {
+    const color = Math.floor(Math.random() * colors.length);
+    ctx.beginPath();
+    ctx.strokeStyle = colors[color];
+    moveToX = event.offsetX;
+    moveToY = event.offsetY;
+};
+const handleMouseMove = (event) => {
+    ctx.moveTo(moveToX, moveToY);
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+};
+
+canvas.addEventListener("click", handleClick);
+canvas.addEventListener("mousemove", handleMouseMove);
