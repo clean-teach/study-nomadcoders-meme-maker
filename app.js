@@ -8,6 +8,7 @@ const modeBtn = document.querySelector('#mode-btn');
 const destroyBtn = document.querySelector('#destroy-btn');
 const eraserBtn = document.querySelector('#eraser-btn');
 const fileInput = document.querySelector('#file');
+const textInput = document.querySelector('#text');
 
 let isPainting = false,
     isFilling = false;
@@ -15,6 +16,7 @@ let isPainting = false,
 canvas.width = 800;
 canvas.height = 800;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 const handleMouseMove = event => {
     if(isPainting){
@@ -85,11 +87,23 @@ const onFileChange = (event) => {
     };
 };
 
+const onDoubledClick = (event) => {
+    const txt = textInput.value;
+    if(txt !== ''){
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.font = 'normal 36px "Press Start 2P"';
+        ctx.fillText(txt, event.offsetX, event.offsetY);
+        ctx.restore();
+    }
+};
+
 canvas.addEventListener("mousemove", handleMouseMove);
 canvas.addEventListener("mousedown", startPainting);
 document.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("click", onCanvasClick);
 // canvas.addEventListener("mouseleave", cancelPainting);
+canvas.addEventListener("dblclick", onDoubledClick);
 
 lineWidth.addEventListener('change', onLineWidthChange);
 color.addEventListener('change', onColorChange);
