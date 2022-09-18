@@ -73,14 +73,24 @@
     </div>
     <canvas></canvas>
     <div class="btns">
-        <input type="range" id="line-width" min="1" max="10" step=".1">
+        <label for="line-width">🖌 Line width</label>
+        <input type="range" id="line-width" min="1" max="20" step=".1">
+        <label for="font-size">📏 Font Size</label>
+        <input type="range" id="font-size" min="12" max="64" step="1">
+        <fieldset>
+            <legend>Font Family</legend>
+            <button class="font-family" data-font-family="army">army</button>
+            <button class="font-family" data-font-family="inkfree">Ink Free</button>
+            <button class="font-family" data-font-family="oei">Oei</button>
+        </fieldset>
+        <input type="text" id="text" placeholder="Write and then Double-click">
+        <button id="mode-change-btn">Stroke ↔ Fill</button>
         <button id="mode-btn">🩸 Fill</button>
         <button id="destroy-btn">💣 Destroy</button>
         <button id="eraser-btn">❌ Erase</button>
         <label for="file">💅🏻 Add Photo</label>
         <input type="file" id="file" accept="image/*">
-        <input type="text" id="text" placeholder="Write and then Double-click">
-        <button id="save">Saving Image</button>
+        <button id="save">🖼 Saving Image</button>
     </div>
     <script src="app.js"></script>
 </body>

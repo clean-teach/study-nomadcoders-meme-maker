@@ -50,6 +50,17 @@ body {
 .color-option:hover {
     transform: scale(1.2);
 }
+fieldset {
+    padding: 1rem 0;
+    border: 1px solid #eeeeee;
+    border-right: none;
+    border-left: none;
+}
+legend {
+    font-size: 12px;
+    color: royalblue;
+    font-weight: bold;
+}
 input#color {
     background-color: white;
 }
@@ -57,7 +68,7 @@ input#color {
 button,
 label {
     all:unset;
-    padding:10px 0px;
+    padding:10px 8px;
     text-align: center;
     background-color:royalblue;
     color:white;

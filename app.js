@@ -11,8 +11,13 @@ const fileInput = document.querySelector('#file');
 const textInput = document.querySelector('#text');
 const saveBtn = document.querySelector('#save');
 
+const fontSizeInput = document.querySelector('#font-size');
+const fontFamilyBtns = document.querySelectorAll('.font-family');
+
 let isPainting = false,
-    isFilling = false;
+    isFilling = false,
+    fontSize = '24px',
+    fontFamily = 'Press Start 2P';
 
 canvas.width = 800;
 canvas.height = 800;
@@ -49,6 +54,37 @@ const onColorOptionChange = event => {
     const colorValue = event.target.dataset.color;
     setPaintColor(colorValue);
     color.value = colorValue;
+};
+
+const onFontSizeChange = event => {
+    fontSize = `${event.target.value}px`;
+};
+const onFontFamilyClick = event => {
+    const fontFamilyBook = [
+        {
+            fontName: 'army',
+            url: 'ARMY_WD.TTF'
+        },
+        {
+            fontName: 'inkfree',
+            url: ''
+        },
+        {
+            fontName: 'oei',
+            url: ''
+        }
+    ];
+    const current = fontFamilyBook.find(font => font.fontName == event.target.dataset.fontFamily);
+
+    const loadFont = async (fontName, fontURL) => {
+        const font = new FontFace(fontName, `url(${fontURL})`, {
+            style: "normal",
+            weight: "400",
+        });
+        await font.load();
+    };
+    // loadFont(current.fontName, current.url);
+    fontFamily = event.target.dataset.fontFamily;
 };
 
 const onModeClick = () => {
@@ -93,9 +129,10 @@ const onDoubledClick = (event) => {
     if(txt !== ''){
         ctx.save();
         ctx.lineWidth = 1;
-        ctx.font = 'normal 36px "Press Start 2P"';
+        ctx.font = `normal ${fontSize} "${fontFamily}"`;
         ctx.fillText(txt, event.offsetX, event.offsetY);
         ctx.restore();
+        console.log(fontFamily)
     }
 };
 
@@ -118,6 +155,9 @@ lineWidth.addEventListener('change', onLineWidthChange);
 color.addEventListener('change', onColorChange);
 
 colorOptions.forEach(colorOption => colorOption.addEventListener('click', onColorOptionChange));
+
+fontSizeInput.addEventListener('change', onFontSizeChange);
+fontFamilyBtns.forEach(fontFamilyBtn => { fontFamilyBtn.addEventListener('click', onFontFamilyClick); });
 
 modeBtn.addEventListener('click', onModeClick);
 destroyBtn.addEventListener('click', onDestroyClick);
